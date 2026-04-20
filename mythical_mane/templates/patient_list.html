@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mythical Mane Patients</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center border-b-4 border-indigo-500 pb-4">
+            Mythical Mane Patient Roster
+        </h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for patient in patients %}
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-indigo-500 hover:shadow-xl transition duration-300">
+                <h2 class="text-2xl font-bold text-gray-900">{{ patient.name }}</h2>
+                <p class="text-sm text-indigo-600 font-semibold mb-4 uppercase tracking-wide">{{ patient.universe.name }}</p>
+                
+                <div class="space-y-2 text-gray-700">
+                    <p><strong class="text-gray-900">Owner:</strong> {{ patient.owner.name }}</p>
+                    <p><strong class="text-gray-900">Color:</strong> {{ patient.color|default:"Unknown" }}</p>
+                    
+                    <p><strong class="text-gray-900">DOB:</strong> 
+                        {% if patient.dob %}
+                            {{ patient.dob }}
+                        {% else %}
+                            <span class="text-gray-400 italic">Not recorded</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
