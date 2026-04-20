@@ -305,3 +305,16 @@ class VisitProcedure(models.Model):
         managed = False
         db_table = 'visit_procedure'
         unique_together = (('visit', 'procedure', 'performed_at'),)
+
+class CareNote(models.Model):
+    # Links this note to a specific patient. CASCADE means if the patient is deleted, their notes are too.
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    note_text = models.TextField()
+    # auto_now_add automatically sets the timestamp when the note is first created
+    created_at = models.DateTimeField(auto_now_add=True)
+    # blank=True, null=True makes the follow-up date completely optional
+    follow_up_date = models.DateField(blank=True, null=True)
+    resolved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Note for {self.patient.name}"

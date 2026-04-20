@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Universe, Owner, Patient, Employee, Visit, Diagnosis, ProcedureDefinition
+from .models import Universe, Owner, Patient, Employee, Visit, Diagnosis, ProcedureDefinition, CareNote
 
 @admin.register(Universe)
 class UniverseAdmin(admin.ModelAdmin):
@@ -38,3 +38,9 @@ class DiagnosisAdmin(admin.ModelAdmin):
 class ProcedureDefinitionAdmin(admin.ModelAdmin):
     list_display = ('procedure_id', 'name', 'standard_cost')
     search_fields = ('name',)
+
+@admin.register(CareNote)
+class CareNoteAdmin(admin.ModelAdmin):
+    list_display = ('id', 'patient', 'created_at', 'follow_up_date', 'resolved')
+    list_filter = ('resolved', 'created_at')
+    search_fields = ('note_text', 'patient__name')
